@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Расписание</string>
+    <string name="title_home">Расписание</string>
+    <string name="title_dashboard">Замены</string>
+    <string name="title_notifications">Настройки</string>
+
+    <string name="hello_title_0">Привет</string>
+    <string name="hello_title_1">Выбери свой факультет</string>
+    <string name="hello_title_2">Выбери свою кафедру</string>
+    <string name="hello_title_3">Выбери свою специальность</string>
+
+</resources>
