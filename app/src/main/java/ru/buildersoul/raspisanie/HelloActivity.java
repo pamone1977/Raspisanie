@@ -116,6 +116,9 @@ public class HelloActivity extends AppCompatActivity
         protected String doInBackground(String... args)
         {
             facultet_item.clear();
+            cafedra_item.clear();
+            specialLists.clear();
+            groupLists.clear();
             try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
                 PreparedStatement selectStatement = conn.prepareStatement("select * from facyltet");
                 ResultSet rs = selectStatement.executeQuery();
@@ -173,7 +176,8 @@ public class HelloActivity extends AppCompatActivity
         protected String doInBackground(String... args)
         {
             cafedra_item.clear();
-
+            specialLists.clear();
+            groupLists.clear();
             try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
                 PreparedStatement selectStatement = conn.prepareStatement("select * from kafedra WHERE facyltet_id LIKE " + id);
                 ResultSet rs = selectStatement.executeQuery();
@@ -239,7 +243,7 @@ public class HelloActivity extends AppCompatActivity
         protected String doInBackground(String... args)
         {
             specialLists.clear();
-
+            groupLists.clear();
             try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
                 PreparedStatement selectStatement = conn.prepareStatement("select * from special WHERE kafedra_id LIKE " + id);
                 ResultSet rs = selectStatement.executeQuery();
