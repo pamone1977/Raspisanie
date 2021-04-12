@@ -9,4 +9,6 @@
     <string name="hello_title_2">Выбери свою кафедру</string>
     <string name="hello_title_3">Выбери свою специальность</string>
 
+    <string name="settings_text_reset">Сброс конфигурации</string>
+
 </resources>

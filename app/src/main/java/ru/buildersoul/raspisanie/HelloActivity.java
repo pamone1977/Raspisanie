@@ -35,6 +35,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.buildersoul.raspisanie.util.BD;
 import ru.buildersoul.raspisanie.util.FacultetList;
 import ru.buildersoul.raspisanie.util.GroupList;
 import ru.buildersoul.raspisanie.util.KafedraList;
@@ -58,7 +59,6 @@ public class HelloActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello);
 
-
         try
         {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -73,7 +73,6 @@ public class HelloActivity extends AppCompatActivity
         myEditor = myPreferences.edit();
 
         new LoadFacultet().execute();
-
     }
 
 
@@ -101,7 +100,7 @@ public class HelloActivity extends AppCompatActivity
     }
 
 
-    class LoadFacultet extends AsyncTask<String, String, String>
+    public class LoadFacultet extends AsyncTask<String, String, String>
     {
         @Override
         protected void onPreExecute()
@@ -117,7 +116,7 @@ public class HelloActivity extends AppCompatActivity
         protected String doInBackground(String... args)
         {
             facultet_item.clear();
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7390585?useUnicode=yes&characterEncoding=UTF-8", "sql7390585", "TwrqdCgkYK")) {
+            try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
                 PreparedStatement selectStatement = conn.prepareStatement("select * from facyltet");
                 ResultSet rs = selectStatement.executeQuery();
 
@@ -145,6 +144,7 @@ public class HelloActivity extends AppCompatActivity
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
                 {
+                    myEditor.putString("facultet_id", facultet_item.get(pos).id);
                     myEditor.putString("facultet_name", facultet_item.get(pos).name);
                     new LoadKafedra(Integer.parseInt(facultet_item.get(pos).id)).execute();
                 }
@@ -174,10 +174,11 @@ public class HelloActivity extends AppCompatActivity
         {
             cafedra_item.clear();
 
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7390585?useUnicode=yes&characterEncoding=UTF-8", "sql7390585", "TwrqdCgkYK")) {
+            try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
                 PreparedStatement selectStatement = conn.prepareStatement("select * from kafedra WHERE facyltet_id LIKE " + id);
                 ResultSet rs = selectStatement.executeQuery();
-                while (rs.next()) { // will traverse through all rows
+                while (rs.next())
+                { // will traverse through all rows
                     cafedra_item.add(new KafedraList(rs.getInt("id")+"", rs.getString("kafedra_name")));
                 }
 
@@ -202,6 +203,7 @@ public class HelloActivity extends AppCompatActivity
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                        myEditor.putString("cafedra_id", cafedra_item.get(pos).id);
                         myEditor.putString("cafedra_name", cafedra_item.get(pos).name);
                         new LoadSpecial(Integer.parseInt(cafedra_item.get(pos).id)).execute();
                     }
@@ -238,8 +240,8 @@ public class HelloActivity extends AppCompatActivity
         {
             specialLists.clear();
 
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7390585?useUnicode=yes&characterEncoding=UTF-8", "sql7390585", "TwrqdCgkYK")) {
-                PreparedStatement selectStatement = conn.prepareStatement("select * from special WHERE facult LIKE " + id);
+            try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
+                PreparedStatement selectStatement = conn.prepareStatement("select * from special WHERE kafedra_id LIKE " + id);
                 ResultSet rs = selectStatement.executeQuery();
                 while (rs.next()) {
                     specialLists.add(new SpecialList(rs.getInt("id")+"", rs.getString("special_name"),rs.getString("obrag_programm") ));
@@ -267,6 +269,7 @@ public class HelloActivity extends AppCompatActivity
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                        myEditor.putString("special_id", specialLists.get(pos).id);
                         myEditor.putString("special_name", specialLists.get(pos).name);
                         new LoadGroup(Integer.parseInt(specialLists.get(pos).id)).execute();
                     }
@@ -302,7 +305,7 @@ public class HelloActivity extends AppCompatActivity
         protected String doInBackground(String... args)
         {
 
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7390585?useUnicode=yes&characterEncoding=UTF-8", "sql7390585", "TwrqdCgkYK")) {
+            try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
                 PreparedStatement selectStatement = conn.prepareStatement("select * from groups WHERE special LIKE " + id);
                 ResultSet rs = selectStatement.executeQuery();
                 while (rs.next()) {
@@ -330,16 +333,13 @@ public class HelloActivity extends AppCompatActivity
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
                     {
+                        myEditor.putString("groups_id", groupLists.get(pos).id);
                         myEditor.putString("groups_name", groupLists.get(pos).name);
                     }
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parentView) { }
                 });
-
-
-
-
             }
             else
             {
