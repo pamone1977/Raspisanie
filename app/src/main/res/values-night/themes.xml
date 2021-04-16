@@ -15,5 +15,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="customSpinnerTheme" parent="Theme.Raspisanie">
+        <item name="colorControlNormal">@color/teal_700</item>
+        <item name="colorControlActivated">@color/teal_700</item>
+        <item name="colorControlHighlight">@color/teal_700</item>
+        <item name="android:textColor">@color/white2</item>
+
+    </style>
 
 </resources>

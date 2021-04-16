@@ -18,28 +18,37 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="center"
                 android:text="@string/hello_title_0"
-                android:textSize="36sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="center"
                 android:text="@string/hello_title_1"
                 android:textSize="26sp" />
 
             <Spinner
                 android:id="@+id/spinner2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/customSpinnerTheme" />
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="center"
+                android:theme="@style/customSpinnerTheme"
+                />
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="center"
                 android:text="@string/hello_title_2"
                 android:textSize="26sp"
                 android:visibility="invisible" />
@@ -48,14 +57,16 @@
                 android:id="@+id/spinner4"
                 style="@style/Widget.AppCompat.Spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:theme="@style/customSpinnerTheme"
                 android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="center"
                 android:text="@string/hello_title_3"
                 android:textSize="26sp"
                 android:visibility="invisible" />
@@ -63,14 +74,16 @@
             <Spinner
                 android:id="@+id/spinner3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:theme="@style/customSpinnerTheme"
                 android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="false"
+                android:gravity="center"
                 android:text="@string/hello_title_4"
                 android:textSize="26sp"
                 android:visibility="invisible" />
@@ -78,7 +91,7 @@
             <Spinner
                 android:id="@+id/spinner5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:theme="@style/customSpinnerTheme"
                 android:visibility="invisible" />
         </LinearLayout>

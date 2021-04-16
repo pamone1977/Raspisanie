@@ -138,8 +138,8 @@ public class HelloActivity extends AppCompatActivity
 
             Spinner spinner = (Spinner) findViewById(R.id.spinner2);
             spinner.setPrompt("Title");
-            ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.select_dialog_item, facultet_item);
-            adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), R.layout.my_spinner, facultet_item);
+            adapter.setDropDownViewResource(R.layout.my_spinner);
             spinner.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -199,8 +199,8 @@ public class HelloActivity extends AppCompatActivity
             {
                 spinner.setVisibility(View.VISIBLE);
                 findViewById(R.id.textView3).setVisibility(View.VISIBLE);
-                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.select_dialog_item, cafedra_item);
-                adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.my_spinner, cafedra_item);
+                adapter.setDropDownViewResource(R.layout.my_spinner);
                 spinner.setAdapter(adapter);
 
                 adapter.notifyDataSetChanged();
@@ -264,8 +264,8 @@ public class HelloActivity extends AppCompatActivity
             {
                 spinner.setVisibility(View.VISIBLE);
                 findViewById(R.id.textView4).setVisibility(View.VISIBLE);
-                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.select_dialog_item, specialLists);
-                adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.my_spinner, specialLists);
+                adapter.setDropDownViewResource(R.layout.my_spinner);
                 spinner.setAdapter(adapter);
 
                 adapter.notifyDataSetChanged();
@@ -329,8 +329,8 @@ public class HelloActivity extends AppCompatActivity
             {
                 spinner.setVisibility(View.VISIBLE);
                 findViewById(R.id.textView5).setVisibility(View.VISIBLE);
-                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.select_dialog_item, groupLists);
-                adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.my_spinner, groupLists);
+                adapter.setDropDownViewResource(R.layout.my_spinner);
                 spinner.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
