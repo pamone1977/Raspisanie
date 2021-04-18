@@ -34,6 +34,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="1dp"
         app:layout_constraintVertical_bias="0.0"
+        android:paddingBottom="600dp"
         app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,4 +11,5 @@
     <string name="hello_title_4">Выбери свою группу</string>
     <string name="settings_text_reset">Сброс конфигурации</string>
 
+    <string name="save">Сохранить</string>
 </resources>
