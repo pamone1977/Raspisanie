@@ -225,7 +225,8 @@ public class HomeFragment extends Fragment {
         {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+                {
                     table = (TableLayout) root.findViewById(R.id.tablezamena);
                     table.setColumnShrinkable(0, true);
                     table.removeAllViews();
@@ -246,7 +247,8 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void onNothingSelected(AdapterView<?> parentView) {
+                public void onNothingSelected(AdapterView<?> parentView)
+                {
                 }
             });
 
@@ -324,7 +326,7 @@ public class HomeFragment extends Fragment {
     class LoadPaspisanie extends AsyncTask<String, String, String>
     {
         String den;
-        public LoadPaspisanie(String den){this.den = den;}
+        public LoadPaspisanie(String den){ this.den = den; }
 
         @Override
         protected void onPreExecute()
@@ -375,6 +377,7 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(String file_url)
         {
             pDialog.dismiss();
+            table.removeAllViews();
             TableRow tableRow2 = new TableRow(getContext());
             tableRow2.setGravity(Gravity.CENTER);
 
@@ -447,7 +450,7 @@ public class HomeFragment extends Fragment {
 
         protected void onPostExecute(String file_url)
         {
-
+            table.removeAllViews();
             TableRow tableRow2 = new TableRow(getContext());
             tableRow2.setGravity(Gravity.CENTER);
 
