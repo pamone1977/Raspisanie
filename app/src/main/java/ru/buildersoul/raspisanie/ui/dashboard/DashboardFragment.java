@@ -126,14 +126,14 @@ public class DashboardFragment extends Fragment
                 while (rs.next())
                 {
                     if(groups_id.equalsIgnoreCase(rs.getString("groups_id")) && den.equalsIgnoreCase(rs.getString("den_nedel"))) {
-                        String[] strings = (rs.getString("familia")+" " + rs.getString("name")+" " + rs.getString("otcestvo")).split(" ");
-                        String name = strings[0] + " " + strings[1].charAt(0) + ". " + strings[2].charAt(0) + ".";
+                        String strings = (rs.getString("familia")+" " + rs.getString("name")+" " + rs.getString("otcestvo"));
+                        //String name = strings[0] + " " + strings[1].charAt(0) + ". " + strings[2].charAt(0) + ".";
 
                         zamenaList_item.add(new ZamenaList(rs.getString("time_start"),
                                 rs.getString("time_end"),
                                 rs.getString("dic_name"),
                                 rs.getString("type_zan"),
-                                name,
+                                strings,
                                 rs.getString("korpys"),
                                 rs.getString("ayditoria")
                                 ));
