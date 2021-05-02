@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -83,8 +85,8 @@ public class HomeFragment extends Fragment {
         String special_name = myPreferences.getString("groups_name", "unknown");
 
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner_dened);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.my_spinner, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
+        adapter.setDropDownViewResource(R.layout.my_spinner);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
@@ -183,6 +185,7 @@ public class HomeFragment extends Fragment {
                     for (int j = 0; j < 1; j++) {
                         TextView textView1 = new TextView(getContext());
                         textView1.setText(Html.fromHtml(text));
+                        textView1.setTextSize(16);
                         tableRow0.addView(textView1, j);
                     }
 
@@ -210,8 +213,8 @@ public class HomeFragment extends Fragment {
         FloatingActionButton fab = root.findViewById(R.id.floatingActionButton);
 
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner_dened);
-        ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), R.layout.my_spinner, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
+        adapter.setDropDownViewResource(R.layout.my_spinner);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
@@ -311,6 +314,7 @@ public class HomeFragment extends Fragment {
                     for (int j = 0; j < 1; j++) {
                         TextView textView1 = new TextView(getContext());
                         textView1.setText(Html.fromHtml(text));
+                        textView1.setTextSize(16);
                         tableRow0.addView(textView1, j);
                     }
 
@@ -391,6 +395,7 @@ public class HomeFragment extends Fragment {
                 for (int j = 0; j < 1; j++) {
                     TextView textView = new TextView(getContext());
                     textView.setText(Html.fromHtml(paspisanieList_item.get(i - 1).toString()));
+                    textView.setTextSize(16);
                     tableRow.addView(textView, j);
                 }
 
@@ -464,6 +469,7 @@ public class HomeFragment extends Fragment {
                 for (int j = 0; j < 1; j++) {
                     TextView textView = new TextView(getContext());
                     textView.setText(Html.fromHtml(paspisanieList_item.get(i - 1).toString()));
+                    textView.setTextSize(16);
                     tableRow.addView(textView, j);
                 }
 

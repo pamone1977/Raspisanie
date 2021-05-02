@@ -66,8 +66,8 @@ public class DashboardFragment extends Fragment
         String special_name = myPreferences.getString("groups_name", "unknown");
 
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner_dened);
-        ArrayAdapter<String> adapter = new ArrayAdapter(root.getContext(), android.R.layout.select_dialog_item, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter(root.getContext(), R.layout.my_spinner, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
+        adapter.setDropDownViewResource(R.layout.my_spinner);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -161,6 +161,7 @@ public class DashboardFragment extends Fragment
                 for (int j = 0; j < 1; j++) {
                     TextView textView = new TextView(getContext());
                     textView.setText(Html.fromHtml(zamenaList_item.get(i - 1).toString()));
+                    textView.setTextSize(16);
                     tableRow.addView(textView, j);
                 }
 

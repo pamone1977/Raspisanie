@@ -33,5 +33,6 @@
     android:paddingStart="14dip"
     android:paddingEnd="15dip"
     android:ellipsize="marquee"
+    android:textColor="#48d1cc"
     style="@style/customSpinnerTheme"
     />

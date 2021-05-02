@@ -45,6 +45,12 @@ public class HelloActivity extends AppCompatActivity
 {
     private ProgressDialog pDialog;
 
+    /** Массивы хранящие данные о
+     * Факультетах
+     * Кафедрах
+     * Специальностях
+     * Группах
+    */
     List<FacultetList> facultet_item= new ArrayList<>();
     List<KafedraList> cafedra_item = new ArrayList<>();
     List<SpecialList> specialLists = new ArrayList<>();
