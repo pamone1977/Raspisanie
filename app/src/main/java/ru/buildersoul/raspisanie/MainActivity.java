@@ -16,7 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity
 {
-
+    // Инициализация постоянного хранилища
     SharedPreferences myPreferences;
 
     @Override
@@ -25,9 +25,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
+// Получаем из насторек группу
         String name = myPreferences.getString("groups_name", "unknown");
 
+// Проверяем, что в настройкак сожержатся название группы
         if(name.equalsIgnoreCase("unknown")) {
             Intent intent = new Intent(MainActivity.this, HelloActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
