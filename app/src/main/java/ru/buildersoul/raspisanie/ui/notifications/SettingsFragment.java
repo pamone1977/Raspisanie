@@ -32,6 +32,7 @@ public class SettingsFragment extends Fragment {
         {
             @Override
             public void onClick(View v) {
+                // Обработчик нажтия на кнопку сброса настроек
                 PreferenceManager.getDefaultSharedPreferences(getContext()).edit().clear().apply();
                 Intent intent = new Intent(getContext(), HelloActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 public class SpecialList
 {
+    // Содержится образовательная программа, имя и ID группы
     public String name, id, obrag_programm;
 
     public SpecialList(String id, String name, String obrag_programm)

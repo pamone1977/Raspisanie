@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 public class PassisanieList
 {
+    //Расписание
+    // Содержится время начало, время конца пары, дисциплина, тип занятия, ФИО преподавателя, корпус, аудитория, неделя ( Верхня, Нижняя, Без неднли)
     public String time_start, time_end, dic, type_zan, fio, korpys, ayditoria, nedel;
 
     public PassisanieList(String time_start, String time_end, String dic, String type_zan, String fio, String korpys, String ayditoria, String nedel)

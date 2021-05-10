@@ -52,20 +52,24 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class DashboardFragment extends Fragment
 {
-
+    // Инициализация постоянного хранилища
     SharedPreferences myPreferences;
     private ProgressDialog pDialog;
 
+    // Массив хранящий данные о заменах
     List<ZamenaList> zamenaList_item = new ArrayList<>();
+    // Создание основной таблицы
     TableLayout table;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         myPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // Получаем номер (имя) группы
         String special_name = myPreferences.getString("groups_name", "unknown");
 
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner_dened);
+        // Добавляем выпадающий список дни недели
         ArrayAdapter<String> adapter = new ArrayAdapter(root.getContext(), R.layout.my_spinner, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
         adapter.setDropDownViewResource(R.layout.my_spinner);
         spinner.setAdapter(adapter);
@@ -74,11 +78,15 @@ public class DashboardFragment extends Fragment
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
             {
+
                 table = (TableLayout) root.findViewById(R.id.tablezamena);
                 table.setColumnShrinkable(0, true);
                 table.removeAllViews();
+                // Очистка массива замен
                 zamenaList_item.clear();
+                // Получаем выбранный день недели из списака
                 String selected = spinner.getSelectedItem().toString();
+                // Загрузка замен из базы данных по выбранному дню недели
                 new LoadZamena(selected).execute();
 
 
@@ -107,6 +115,7 @@ public class DashboardFragment extends Fragment
         protected void onPreExecute()
         {
             super.onPreExecute();
+            // Открыте диалогового окна без возможности зыкрытия
             pDialog = new ProgressDialog(getContext());
             pDialog.setMessage("Загрузка. Подождите...");
             pDialog.setIndeterminate(false);
@@ -116,19 +125,22 @@ public class DashboardFragment extends Fragment
 
         protected String doInBackground(String... args)
         {
+            //Очистка маасива (Замены)
             zamenaList_item.clear();
+            // Подключение к базе данный
             try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
-
+                // Получение замены по дню недели
                 PreparedStatement selectStatement = conn.prepareStatement("select * from zamenu, dic, prepodav WHERE zamenu.dic = dic.id AND zamenu.prepodavatel = prepodav.id ORDER BY TIME(zamenu.time_start)");
 
                 ResultSet rs = selectStatement.executeQuery();
+                // Получаем груупу id
                 String groups_id  = myPreferences.getString("groups_id", "");
                 while (rs.next())
                 {
+                    // Добавляем в массив только те элементы которые совпадают с группой
                     if(groups_id.equalsIgnoreCase(rs.getString("groups_id")) && den.equalsIgnoreCase(rs.getString("den_nedel"))) {
                         String strings = (rs.getString("familia")+" " + rs.getString("name")+" " + rs.getString("otcestvo"));
-                        //String name = strings[0] + " " + strings[1].charAt(0) + ". " + strings[2].charAt(0) + ".";
-
+                        // Добовляем в массив замены
                         zamenaList_item.add(new ZamenaList(rs.getString("time_start"),
                                 rs.getString("time_end"),
                                 rs.getString("dic_name"),
@@ -148,16 +160,17 @@ public class DashboardFragment extends Fragment
 
         protected void onPostExecute(String file_url)
         {
+            // Закрытие диалогового окна
             pDialog.dismiss();
 
             TableRow tableRow2 = new TableRow(getContext());
             tableRow2.setGravity(Gravity.CENTER);
-
+            // Добавление в таблицу столбцов
             for(int i = 1; i < zamenaList_item.size() + 1; ++i)
             {
                 TableRow tableRow = new TableRow(getContext());
                 tableRow.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
+                // Добавление в таблицу строк
                 for (int j = 0; j < 1; j++) {
                     TextView textView = new TextView(getContext());
                     textView.setText(Html.fromHtml(zamenaList_item.get(i - 1).toString()));

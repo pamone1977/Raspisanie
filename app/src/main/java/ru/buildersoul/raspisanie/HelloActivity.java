@@ -151,7 +151,7 @@ public class HelloActivity extends AppCompatActivity
 
         protected void onPostExecute(String file_url)
         {
-            // Закрытие диалогового окная
+            // Закрытие диалогового окна
             pDialog.dismiss();
             ////
 

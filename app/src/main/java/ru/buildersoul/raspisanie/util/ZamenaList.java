@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 public class ZamenaList
 {
+    //Замены
+    // Содержится время начала, время окончание, дициплина, типп занятия. ФИО преподавателя, аудитория и корпус
     public String time_start, time_end, dic, type_zan, fio, korpys, ayditoria;
 
     public ZamenaList(String time_start, String time_end, String dic, String type_zan, String fio, String korpys, String ayditoria)

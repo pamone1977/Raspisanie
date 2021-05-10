@@ -56,16 +56,17 @@ import ru.buildersoul.raspisanie.util.PassisanieList;
 import ru.buildersoul.raspisanie.util.ZamenaList;
 
 public class HomeFragment extends Fragment {
-
+    // Инициализация постоянного хранилища
     SharedPreferences myPreferences;
     SharedPreferences.Editor myEditor;
     private ProgressDialog pDialog;
-
+    // Массив хранящий данные о расписании
     List<PassisanieList> paspisanieList_item = new ArrayList<>();
+    // Создание основной таблицы
     TableLayout table;
 
     View root;
-
+    // Проверкаа интернет соединения
     public boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
@@ -81,10 +82,12 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
         myPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // Получаем номер (имя) группы
         FloatingActionButton fab = root.findViewById(R.id.floatingActionButton);
         String special_name = myPreferences.getString("groups_name", "unknown");
 
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner_dened);
+        // Добавляем выпадающий список дни недели
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.my_spinner, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
         adapter.setDropDownViewResource(R.layout.my_spinner);
         spinner.setAdapter(adapter);
@@ -105,8 +108,11 @@ public class HomeFragment extends Fragment {
                     table = (TableLayout) root.findViewById(R.id.tablezamena);
                     table.setColumnShrinkable(0, true);
                     table.removeAllViews();
+                    // Очистка массива расписаие
                     paspisanieList_item.clear();
+                    // Получаем выбранный день недели из списака
                     String selected = spinner.getSelectedItem().toString();
+                    // Загрузка расписания из базы данных по выбранному дню недели
                     new LoadPaspisanie(selected).execute();
                     fab.setVisibility(View.VISIBLE);
 
@@ -126,7 +132,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-
+            // Сохранение расписания в память
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -151,6 +157,7 @@ public class HomeFragment extends Fragment {
         }
         else
         {
+            //Сохраненные данные (Расписание) для просмотра в оффлайн режиме
             fab.setVisibility(View.INVISIBLE);
             Snackbar.make(container, "Нет интернета! Оффлайн содержимое", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             long mills = 200L;
@@ -158,6 +165,7 @@ public class HomeFragment extends Fragment {
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
+            // Режим без интернета (оффлайн режим), отображение расписания и выбор дня недели
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
                 @Override
@@ -199,31 +207,35 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+    // Делает первую букувуу заглавной (дни недели)
     public String firstUpperCase(String word){
         if(word == null || word.isEmpty()) return "";
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
-
+    // Метод обновления расписания при разварачивании приложения
     @Override
     public void onResume() {
         super.onResume();
         myPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // Получаем номер (имя) группы
         String special_name = myPreferences.getString("groups_name", "unknown");
         FloatingActionButton fab = root.findViewById(R.id.floatingActionButton);
 
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner_dened);
+        // Добавляем выпадающий список дни недели
         ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), R.layout.my_spinner, new String[]{"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"});
         adapter.setDropDownViewResource(R.layout.my_spinner);
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        // Получаем текущий день недели
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
         String dayOfTheWeek = firstUpperCase(sdf.format(d));
 
         int position = adapter.getPosition(dayOfTheWeek);
         spinner.setSelection(position, true);
-
+        // Проверкаа интернет соединения
         if(isNetworkAvailable())
         {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -233,8 +245,11 @@ public class HomeFragment extends Fragment {
                     table = (TableLayout) root.findViewById(R.id.tablezamena);
                     table.setColumnShrinkable(0, true);
                     table.removeAllViews();
+                    // Очистка массива расписание
                     paspisanieList_item.clear();
+                    // Получаем выбранный день недели из списака
                     String selected = spinner.getSelectedItem().toString();
+                    // Загрузка замен из базы данных по выбранному дню недели
                     new LoadPaspisanie(selected).execute();
                     fab.setVisibility(View.VISIBLE);
 
@@ -255,7 +270,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-
+            // Сохранение расписания в память
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -280,6 +295,7 @@ public class HomeFragment extends Fragment {
         }
         else
         {
+
             fab.setVisibility(View.INVISIBLE);
             Snackbar.make(root, "Нет интернета! Оффлайн содержимое", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             long mills = 200L;
@@ -287,6 +303,7 @@ public class HomeFragment extends Fragment {
             if (vibrator.hasVibrator()) {
                 vibrator.vibrate(mills);
             }
+            // Режим без интернета (оффлайн режим), отображение расписания и выбор дня недели
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
                 @Override
@@ -345,21 +362,24 @@ public class HomeFragment extends Fragment {
 
         protected String doInBackground(String... args)
         {
+            //Очистка маасива (Расписание)
             paspisanieList_item.clear();
+            // Подключение к базе данный
             try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
-
+                // Получение расписание по дню недели
                 PreparedStatement selectStatement = conn.prepareStatement("select * from passisanie, dic, prepodav WHERE passisanie.dic = dic.id AND passisanie.prepodavatel = prepodav.id ORDER BY TIME(passisanie.time_start), passisanie.nedel");
-
+                // Получаем груупу id
                 ResultSet rs = selectStatement.executeQuery();
                 String groups_id  = myPreferences.getString("groups_id", "");
 
 
                 while (rs.next())
                 {
+                    // Добавляем в массив только те элементы которые совпадают с группой
                     if(groups_id.equalsIgnoreCase(rs.getString("groups_id")) && den.equalsIgnoreCase(rs.getString("den_nedel"))) {
                         String strings = (rs.getString("familia")+" " + rs.getString("name")+" " + rs.getString("otcestvo"));
                         //String name = strings[0] + " " + strings[1].charAt(0) + ". " + strings[2].charAt(0) + ".";
-
+                        // Добовляем в массив расписание
                         paspisanieList_item.add(new PassisanieList(rs.getString("time_start"),
                                 rs.getString("time_end"),
                                 rs.getString("dic_name"),
@@ -380,18 +400,19 @@ public class HomeFragment extends Fragment {
 
         protected void onPostExecute(String file_url)
         {
+            // Закрытие диалогового окна
             pDialog.dismiss();
             table.removeAllViews();
             TableRow tableRow2 = new TableRow(getContext());
             tableRow2.setGravity(Gravity.CENTER);
 
             if(paspisanieList_item.size() == 0) return;
-
+            // Добавление в таблицу столбцов
             for(int i = 1; i < paspisanieList_item.size() + 1; ++i)
             {
                 TableRow tableRow = new TableRow(getContext());
                 tableRow.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
+                // Добавление в таблицу строк
                 for (int j = 0; j < 1; j++) {
                     TextView textView = new TextView(getContext());
                     textView.setText(Html.fromHtml(paspisanieList_item.get(i - 1).toString()));
@@ -407,6 +428,7 @@ public class HomeFragment extends Fragment {
     class SavePaspisanie extends AsyncTask<String, String, String>
     {
         String den;
+        // Сохранение в оффлайн режиме
         public SavePaspisanie(String den){this.den = den;}
 
         @Override
@@ -418,20 +440,23 @@ public class HomeFragment extends Fragment {
 
         protected String doInBackground(String... args)
         {
+            // Подключение к базе данный
             try (Connection conn = DriverManager.getConnection(BD.domes, BD.user, BD.password)) {
-
+                // Получение расписание по дню недели
                 PreparedStatement selectStatement = conn.prepareStatement("select * from passisanie, dic, prepodav WHERE passisanie.dic = dic.id AND passisanie.prepodavatel = prepodav.id ORDER BY TIME(passisanie.time_start), passisanie.nedel");
 
                 ResultSet rs = selectStatement.executeQuery();
+                // Получаем груупу id
                 String groups_id  = myPreferences.getString("groups_id", "");
 
                 StringBuilder allText = new StringBuilder();
 
                 while (rs.next())
                 {
+                    // Добавляем в массив только те элементы которые совпадают с группой
                     if(groups_id.equalsIgnoreCase(rs.getString("groups_id")) && den.equalsIgnoreCase(rs.getString("den_nedel"))) {
                         String strings = (rs.getString("familia")+" " + rs.getString("name")+" " + rs.getString("otcestvo"));
-
+                        // Добовляем в строковый массив расписание
                         PassisanieList raspis = new PassisanieList(rs.getString("time_start"),
                                 rs.getString("time_end"),
                                 rs.getString("dic_name"),
@@ -444,6 +469,7 @@ public class HomeFragment extends Fragment {
                         allText.append(raspis.toString());
                     }
                 }
+                // Сохранение в память расписание
                 myEditor.putString(den, allText.toString());
                 myEditor.commit();
 
